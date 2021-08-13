@@ -13,18 +13,18 @@ class MicropostsController extends Controller
         // 認証済みユーザを取得
         $user = \Auth::user();
         // ユーザの投稿の一覧を作成日時の降順で取得
-        $microposts = $user -> microposts()->orderBy('created_at', 'desc')->paginate(10);
-        
+        $microposts = $user -> feed_microposts()->orderBy('created_at', 'desc')->paginate(10);
+
         $data = [
             'user' => $user,
             'microposts' => $microposts,
           ];
       }
-      
+
       // welcomeビューでそれらを表示
       return view('welcome', $data);
     }
-    
+
     public function store(Request $request)
     {
         // バリデーション
@@ -40,7 +40,7 @@ class MicropostsController extends Controller
         // 前のURLへリダイレクトさせる
         return back();
     }
-    
+
     public function destroy($id)
     {
         // idの値で投稿を検索して取得
